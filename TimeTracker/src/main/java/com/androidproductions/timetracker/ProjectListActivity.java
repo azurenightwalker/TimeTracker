@@ -14,15 +14,15 @@ import android.support.v4.app.FragmentActivity;
  * item details side-by-side using two vertical panes.
  * <p>
  * The activity makes heavy use of fragments. The list of items is a
- * {@link ProjectListFragment} and the item details
+ * {@link ActionListFragment} and the item details
  * (if present) is a {@link ProjectDetailFragment}.
  * <p>
  * This activity also implements the required
- * {@link ProjectListFragment.Callbacks} interface
+ * {@link ActionListFragment.Callbacks} interface
  * to listen for item selections.
  */
 public class ProjectListActivity extends FragmentActivity
-        implements ProjectListFragment.Callbacks {
+        implements ActionListFragment.Callbacks {
 
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
@@ -44,7 +44,7 @@ public class ProjectListActivity extends FragmentActivity
 
             // In two-pane mode, list items should be given the
             // 'activated' state when touched.
-            ((ProjectListFragment) getSupportFragmentManager()
+            ((ActionListFragment) getSupportFragmentManager()
                     .findFragmentById(R.id.project_list))
                     .setActivateOnItemClick(true);
         }
@@ -53,17 +53,17 @@ public class ProjectListActivity extends FragmentActivity
     }
 
     /**
-     * Callback method from {@link ProjectListFragment.Callbacks}
+     * Callback method from {@link ActionListFragment.Callbacks}
      * indicating that the item with the given ID was selected.
      */
     @Override
-    public void onItemSelected(String id) {
+    public void onItemSelected(ActionMethod id) {
         if (mTwoPane) {
             // In two-pane mode, show the detail view in this activity by
             // adding or replacing the detail fragment using a
             // fragment transaction.
             Bundle arguments = new Bundle();
-            arguments.putString(ProjectDetailFragment.ARG_ITEM_ID, id);
+            arguments.putString(ProjectDetailFragment.ARG_ITEM_ID, "");
             ProjectDetailFragment fragment = new ProjectDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()

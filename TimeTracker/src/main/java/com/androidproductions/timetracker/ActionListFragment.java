@@ -18,7 +18,7 @@ import com.androidproductions.timetracker.dummy.DummyContent;
  * Activities containing this fragment MUST implement the {@link Callbacks}
  * interface.
  */
-public class ProjectListFragment extends ListFragment {
+public class ActionListFragment extends ListFragment {
 
     /**
      * The serialization (saved instance state) Bundle key representing the
@@ -46,7 +46,7 @@ public class ProjectListFragment extends ListFragment {
         /**
          * Callback for when an item has been selected.
          */
-        public void onItemSelected(String id);
+        public void onItemSelected(ActionMethod actionMethod);
     }
 
     /**
@@ -55,7 +55,7 @@ public class ProjectListFragment extends ListFragment {
      */
     private static Callbacks sDummyCallbacks = new Callbacks() {
         @Override
-        public void onItemSelected(String id) {
+        public void onItemSelected(ActionMethod actionMethod) {
         }
     };
 
@@ -63,7 +63,7 @@ public class ProjectListFragment extends ListFragment {
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public ProjectListFragment() {
+    public ActionListFragment() {
     }
 
     @Override
@@ -115,7 +115,7 @@ public class ProjectListFragment extends ListFragment {
 
         // Notify the active callbacks interface (the activity, if the
         // fragment is attached to one) that an item has been selected.
-        mCallbacks.onItemSelected(DummyContent.ITEMS.get(position).id);
+        mCallbacks.onItemSelected(ActionMethod.parse(position));
     }
 
     @Override
