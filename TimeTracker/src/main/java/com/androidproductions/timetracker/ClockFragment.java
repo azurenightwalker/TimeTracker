@@ -10,6 +10,9 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.androidproductions.timetracker.com.androidproductions.timetracker.data.Day;
+import com.androidproductions.timetracker.com.androidproductions.timetracker.data.TimesheetContract;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -38,5 +41,10 @@ public class ClockFragment extends Fragment {
         final TimePicker timePicker = (TimePicker) getActivity().findViewById(R.id.time);
         final Date date = TimeHelper.getDate(timePicker);
         Toast.makeText(getActivity(),TimeHelper.TimeFormat12Hr.format(date), Toast.LENGTH_SHORT).show();
+        if (mIsIn)
+        {
+            Day day = new Day(date);
+            getActivity().getContentResolver().insert(TimesheetContract.CONTENT_URI,day.asContentValues());
+        }
     }
 }

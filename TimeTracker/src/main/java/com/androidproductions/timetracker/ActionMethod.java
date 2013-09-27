@@ -6,7 +6,8 @@ public enum ActionMethod {
     ClockOut(2<<1),
     SwitchProject(3<<1),
     ToggleLunch(4<<1),
-    PushData(5<<1);
+    ViewDay(5<<1),
+    PushData(6<<1);
 
     public final int Value;
 
@@ -29,6 +30,8 @@ public enum ActionMethod {
             case 4<<1:
                 return  ActionMethod.ToggleLunch;
             case 5<<1:
+                return  ActionMethod.ViewDay;
+            case 6<<1:
                 return  ActionMethod.PushData;
             default:
                 return null;

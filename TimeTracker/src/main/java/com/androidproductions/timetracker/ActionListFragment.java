@@ -8,8 +8,6 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.androidproductions.timetracker.dummy.DummyContent;
-
 /**
  * A list fragment representing a list of Actions. This fragment
  * also supports tablet devices by allowing list items to be given an

@@ -7,12 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.androidproductions.timetracker.dummy.DummyContent;
-
 /**
  * A fragment representing a single Project detail screen.
  * This fragment is either contained in a {@link ActionListActivity}
- * in two-pane mode (on tablets) or a {@link ProjectDetailActivity}
+ * in two-pane mode (on tablets) or a {@link FragmentHolderActivity}
  * on handsets.
  */
 public class ProjectDetailFragment extends Fragment {
