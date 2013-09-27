@@ -7,4 +7,6 @@
     http://developer.android.com/training/multiscreen/screensizes.html#TaskUseAliasFilters
     -->
     <item type="layout" name="activity_project_list">@layout/activity_project_twopane</item>
+    <item type="layout" name="clock_in">@layout/clock_in_land</item>
+    <item type="layout" name="clock_out">@layout/clock_out_land</item>
 </resources>

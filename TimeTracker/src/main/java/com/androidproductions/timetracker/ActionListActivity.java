@@ -1,7 +1,9 @@
 package com.androidproductions.timetracker;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 
 
@@ -21,7 +23,7 @@ import android.support.v4.app.FragmentActivity;
  * {@link ActionListFragment.Callbacks} interface
  * to listen for item selections.
  */
-public class ProjectListActivity extends FragmentActivity
+public class ActionListActivity extends FragmentActivity
         implements ActionListFragment.Callbacks {
 
     /**
@@ -29,10 +31,15 @@ public class ProjectListActivity extends FragmentActivity
      * device.
      */
     private boolean mTwoPane;
+    private ActionMethod mSelected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        InitializeUI(null);
+    }
+
+    private void InitializeUI(ActionMethod method) {
         setContentView(R.layout.activity_project_list);
 
         if (findViewById(R.id.project_detail_container) != null) {
@@ -48,6 +55,10 @@ public class ProjectListActivity extends FragmentActivity
                     .findFragmentById(R.id.project_list))
                     .setActivateOnItemClick(true);
         }
+        if (method != null)
+        {
+            onItemSelected(method);
+        }
 
         // TODO: If exposing deep links into your app, handle intents here.
     }
@@ -57,24 +68,28 @@ public class ProjectListActivity extends FragmentActivity
      * indicating that the item with the given ID was selected.
      */
     @Override
-    public void onItemSelected(ActionMethod id) {
+    public void onItemSelected(ActionMethod method) {
+        mSelected = method;
         if (mTwoPane) {
             // In two-pane mode, show the detail view in this activity by
             // adding or replacing the detail fragment using a
             // fragment transaction.
-            Bundle arguments = new Bundle();
-            arguments.putString(ProjectDetailFragment.ARG_ITEM_ID, "");
-            ProjectDetailFragment fragment = new ProjectDetailFragment();
-            fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.project_detail_container, fragment)
+                    .replace(R.id.project_detail_container, FragmentHelper.getFragmentByAction(mSelected))
                     .commit();
         } else {
             // In single-pane mode, simply start the detail activity
             // for the selected item ID.
-            Intent detailIntent = new Intent(this, ProjectDetailActivity.class);
-            detailIntent.putExtra(ProjectDetailFragment.ARG_ITEM_ID, id);
+            Intent detailIntent = new Intent(this, FragmentHolderActivity.class);
+            detailIntent.putExtra(FragmentHolderActivity.FRAGMENT_ID, mSelected.Value);
             startActivity(detailIntent);
         }
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig)
+    {
+        super.onConfigurationChanged(newConfig);
+        /*InitializeUI(mSelected);*/
     }
 }

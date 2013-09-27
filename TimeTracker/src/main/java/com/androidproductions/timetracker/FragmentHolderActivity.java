@@ -2,20 +2,24 @@ package com.androidproductions.timetracker;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
+import android.view.View;
 
 /**
  * An activity representing a single Project detail screen. This
  * activity is only used on handset devices. On tablet-size devices,
  * item details are presented side-by-side with a list of items
- * in a {@link ProjectListActivity}.
+ * in a {@link com.androidproductions.timetracker.ActionListActivity}.
  * <p>
  * This activity is mostly just a 'shell' activity containing nothing
- * more than a {@link ProjectDetailFragment}.
+ * more than a {@link com.androidproductions.timetracker.ProjectDetailFragment}.
  */
-public class ProjectDetailActivity extends FragmentActivity {
+public class FragmentHolderActivity extends FragmentActivity {
+    public static final String FRAGMENT_ID = "FragmentId";
+    private Fragment fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,16 +39,17 @@ public class ProjectDetailActivity extends FragmentActivity {
         // http://developer.android.com/guide/components/fragments.html
         //
         if (savedInstanceState == null) {
-            // Create the detail fragment and add it to the activity
-            // using a fragment transaction.
-            Bundle arguments = new Bundle();
-            arguments.putString(ProjectDetailFragment.ARG_ITEM_ID,
-                    getIntent().getStringExtra(ProjectDetailFragment.ARG_ITEM_ID));
-            ProjectDetailFragment fragment = new ProjectDetailFragment();
-            fragment.setArguments(arguments);
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.project_detail_container, fragment)
-                    .commit();
+            Bundle extras = getIntent().getExtras();
+            if (extras != null)
+            {
+                ActionMethod method = ActionMethod.parse(extras.getInt(FRAGMENT_ID,0));
+                // Create the detail fragment and add it to the activity
+                // using a fragment transaction.
+                fragment = FragmentHelper.getFragmentByAction(method);
+                getSupportFragmentManager().beginTransaction()
+                        .add(R.id.project_detail_container, fragment)
+                        .commit();
+            }
         }
     }
 
@@ -59,9 +64,13 @@ public class ProjectDetailActivity extends FragmentActivity {
                 //
                 // http://developer.android.com/design/patterns/navigation.html#up-vs-back
                 //
-                NavUtils.navigateUpTo(this, new Intent(this, ProjectListActivity.class));
+                NavUtils.navigateUpTo(this, new Intent(this, ActionListActivity.class));
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void clock(View view) {
+        ((ClockFragment)fragment).clock(view);
     }
 }

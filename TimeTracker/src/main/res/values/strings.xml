@@ -3,5 +3,12 @@
 
     <string name="app_name">Time Tracker</string>
     <string name="title_project_detail">Project Detail</string>
+    <string name="title_clockin_preference">Auto Clock In</string>
+    <string name="title_clockout_preference">Auto Clock Out</string>
+    <string name="wifi_ssid_preference">Clocking WiFi Network</string>
+    <string name="clockOutTitle">Clock Out Time:</string>
+    <string name="clockOutButton">Clock Out</string>
+    <string name="clockInTitle">Clock In Time:</string>
+    <string name="clockInButton">Clock In</string>
 
 </resources>

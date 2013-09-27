@@ -11,7 +11,7 @@ import com.androidproductions.timetracker.dummy.DummyContent;
 
 /**
  * A fragment representing a single Project detail screen.
- * This fragment is either contained in a {@link ProjectListActivity}
+ * This fragment is either contained in a {@link ActionListActivity}
  * in two-pane mode (on tablets) or a {@link ProjectDetailActivity}
  * on handsets.
  */
@@ -25,7 +25,7 @@ public class ProjectDetailFragment extends Fragment {
     /**
      * The dummy content this fragment is presenting.
      */
-    private DummyContent.DummyItem mItem;
+    private String mText;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -42,7 +42,7 @@ public class ProjectDetailFragment extends Fragment {
             // Load the dummy content specified by the fragment
             // arguments. In a real-world scenario, use a Loader
             // to load content from a content provider.
-            mItem = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
+            mText = getArguments().getString(ARG_ITEM_ID);
         }
     }
 
@@ -52,9 +52,7 @@ public class ProjectDetailFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_project_detail, container, false);
 
         // Show the dummy content as text in a TextView.
-        if (mItem != null) {
-            ((TextView) rootView.findViewById(R.id.project_detail)).setText(mItem.content);
-        }
+        ((TextView) rootView.findViewById(R.id.project_detail)).setText(mText);
 
         return rootView;
     }
