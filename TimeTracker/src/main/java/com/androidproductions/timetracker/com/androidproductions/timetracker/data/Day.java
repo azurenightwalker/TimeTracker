@@ -1,7 +1,9 @@
 package com.androidproductions.timetracker.com.androidproductions.timetracker.data;
 
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.net.Uri;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -11,6 +13,7 @@ import java.util.Date;
 import java.util.Locale;
 
 public class Day {
+    private final long Id;
     private final Date Day;
     private final Date TimeIn;
     private Date TimeOut;
@@ -30,11 +33,12 @@ public class Day {
     public Day(Cursor cursor)
     {
         JSONObject tempProj;
+        Id = cursor.getLong(cursor.getColumnIndex(TimesheetContract._ID));
         Day = new Date(cursor.getLong(cursor.getColumnIndex(TimesheetContract.Date)));
         TimeIn = new Date(cursor.getLong(cursor.getColumnIndex(TimesheetContract.TimeIn)));
         TimeOut = new Date(cursor.getLong(cursor.getColumnIndex(TimesheetContract.TimeOut)));
         try {
-            tempProj = new JSONObject(cursor.getString(cursor.getColumnIndex(TimesheetContract.TimeOut)));
+            tempProj = new JSONObject(cursor.getString(cursor.getColumnIndex(TimesheetContract.Projects)));
         } catch (JSONException e) {
             e.printStackTrace();
             tempProj = new JSONObject();
@@ -45,11 +49,10 @@ public class Day {
     public Day(Date timeIn)
     {
         final Calendar cal = Calendar.getInstance(Locale.getDefault());
-        cal.set(Calendar.HOUR_OF_DAY, 0);
-        cal.set(Calendar.MINUTE, 0);
-        Day = cal.getTime();
+        Day = new Date(cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(Calendar.DATE));
         TimeIn = timeIn;
         Projects = new JSONObject();
+        Id = -1L;
     }
 
     public void setProjectHours(String project, int hours)
@@ -69,5 +72,19 @@ public class Day {
             e.printStackTrace();
             return -1;
         }
+    }
+
+    public Date getTimeOut()
+    {
+        return TimeOut;
+    }
+
+    public void setTimeOut(Date timeOut) {
+        this.TimeOut = timeOut;
+    }
+
+    public Uri getUri()
+    {
+        return ContentUris.withAppendedId(TimesheetContract.CONTENT_URI,Id);
     }
 }

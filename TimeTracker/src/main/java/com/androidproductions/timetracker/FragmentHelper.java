@@ -14,6 +14,8 @@ public final class FragmentHelper {
                 return new ClockFragment(true);
             case ClockOut:
                 return new ClockFragment(false);
+            case SwitchProject:
+                return new ProjectFragment();
             default:
                 Bundle arguments = new Bundle();
                 arguments.putString(ProjectDetailFragment.ARG_ITEM_ID, actionMethod.toString());

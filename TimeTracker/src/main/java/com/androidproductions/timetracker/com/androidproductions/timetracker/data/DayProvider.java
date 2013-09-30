@@ -36,11 +36,11 @@ public class DayProvider extends ContentProvider
         // Defaults & ID's
         switch(uriMatcher.match(uri))
         {
-            case DAY:
+            case DAYS:
                 if (TextUtils.isEmpty(sortOrder)) sortOrder = "_ID ASC";
                 break;
-            case DAYS:
-                selection = (selection == null ? "" : (selection + " ")) +
+            case DAY:
+                selection = (selection == null ? "" : (selection + " and ")) +
                         TimesheetContract._ID + " = " + uri.getLastPathSegment();
                 break;
             default:
@@ -85,6 +85,15 @@ public class DayProvider extends ContentProvider
 
     public int update(Uri uri, ContentValues contentValues, String selection, String[] selectionArgs) {
         final SQLiteDatabase db = mTimeTrackerDB.getWritableDatabase();
+        switch(uriMatcher.match(uri))
+        {
+            case DAY:
+            selection = (selection == null ? "" : (selection + " and ")) +
+                    TimesheetContract._ID + " = " + uri.getLastPathSegment();
+            break;
+            default:
+                break;
+        }
         if (db != null) {
             int affectedRows = db.update(findTableName(uri),contentValues,selection,selectionArgs);
             db.close();
