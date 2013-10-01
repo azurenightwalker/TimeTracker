@@ -88,7 +88,7 @@ public final class ProjectHelper {
                     res.put(pw,hours);
             }
         }
-        
+
         return res;
     }
 }

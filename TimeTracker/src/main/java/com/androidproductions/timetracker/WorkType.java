@@ -3,8 +3,8 @@ package com.androidproductions.timetracker;
 public enum WorkType {
     Dev(0),
     Support(1<<1),
-    Research(2<<1),
-    Training(3<<1);
+    Research(2<<1);//,
+    //Training(3<<1);
 
     public final int Value;
 
@@ -22,8 +22,8 @@ public enum WorkType {
                 return  WorkType.Support;
             case 2<<1:
                 return  WorkType.Research;
-            case 3<<1:
-                return  WorkType.Training;
+            /*case 3<<1:
+                return  WorkType.Training;*/
             default:
                 return null;
         }

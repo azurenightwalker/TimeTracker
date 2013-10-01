@@ -8,8 +8,6 @@ public final class FragmentHelper {
     {
         switch (actionMethod)
         {
-            case Configure:
-                return new ConfigureFragment();
             case ClockIn:
                 return new ClockFragment(true);
             case ClockOut:

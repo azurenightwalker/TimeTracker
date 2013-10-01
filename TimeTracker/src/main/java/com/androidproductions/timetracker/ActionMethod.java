@@ -1,13 +1,10 @@
 package com.androidproductions.timetracker;
 
 public enum ActionMethod {
-    Configure(0),
-    ClockIn(1<<1),
-    ClockOut(2<<1),
-    SwitchProject(3<<1),
-    ToggleLunch(4<<1),
-    ViewDay(5<<1),
-    PushData(6<<1);
+    ClockIn(0),
+    ClockOut(1<<1),
+    SwitchProject(2<<1),
+    ViewDay(3<<1);
 
     public final int Value;
 
@@ -20,19 +17,13 @@ public enum ActionMethod {
         switch (val)
         {
             case 0:
-                return  ActionMethod.Configure;
-            case 1<<1:
                 return  ActionMethod.ClockIn;
-            case 2<<1:
+            case 1<<1:
                 return  ActionMethod.ClockOut;
-            case 3<<1:
+            case 2<<1:
                 return  ActionMethod.SwitchProject;
-            case 4<<1:
-                return  ActionMethod.ToggleLunch;
-            case 5<<1:
+            case 3<<1:
                 return  ActionMethod.ViewDay;
-            case 6<<1:
-                return  ActionMethod.PushData;
             default:
                 return null;
         }
