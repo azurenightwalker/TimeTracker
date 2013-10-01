@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.Locale;
 
 public final class DayHelper {
-    public static final Day findToday(Context context)
+    public static Day findToday(Context context)
     {
         Day today = null;
         final Calendar cal = Calendar.getInstance(Locale.getDefault());

@@ -55,7 +55,7 @@ public class Day {
         Id = -1L;
     }
 
-    public void setProjectHours(ProjectWork project, int hours)
+    public void addProjectHours(ProjectWork project, double hours)
     {
         try {
             Projects.put(project.toString(),getProjectHours(project.toString())+hours);
@@ -64,10 +64,10 @@ public class Day {
         }
     }
 
-    public int getProjectHours(String project)
+    public double getProjectHours(String project)
     {
         try {
-            return Projects.getInt(project);
+            return Projects.getDouble(project);
         } catch (JSONException e) {
             e.printStackTrace();
             return 0;
@@ -86,5 +86,9 @@ public class Day {
     public Uri getUri()
     {
         return ContentUris.withAppendedId(TimesheetContract.CONTENT_URI,Id);
+    }
+
+    public Date getTimeIn() {
+        return TimeIn;
     }
 }

@@ -3,7 +3,6 @@ package com.androidproductions.timetracker;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 
 
@@ -11,7 +10,7 @@ import android.support.v4.app.FragmentActivity;
  * An activity representing a list of Projects. This activity
  * has different presentations for handset and tablet-size devices. On
  * handsets, the activity presents a list of items, which when touched,
- * lead to a {@link ProjectDetailActivity} representing
+ * lead to a {@link FragmentHolderActivity} representing
  * item details. On tablets, the activity presents the list of items and
  * item details side-by-side using two vertical panes.
  * <p>
@@ -31,7 +30,6 @@ public class ActionListActivity extends FragmentActivity
      * device.
      */
     private boolean mTwoPane;
-    private ActionMethod mSelected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +67,7 @@ public class ActionListActivity extends FragmentActivity
      */
     @Override
     public void onItemSelected(ActionMethod method) {
-        mSelected = method;
+        ActionMethod mSelected = method;
         if (mTwoPane) {
             // In two-pane mode, show the detail view in this activity by
             // adding or replacing the detail fragment using a

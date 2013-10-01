@@ -7,17 +7,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.TimePicker;
-import android.widget.Toast;
 
-import com.androidproductions.timetracker.com.androidproductions.timetracker.data.Day;
 import com.androidproductions.timetracker.com.androidproductions.timetracker.data.Project;
 import com.androidproductions.timetracker.com.androidproductions.timetracker.data.ProjectWork;
-import com.androidproductions.timetracker.com.androidproductions.timetracker.data.TimesheetContract;
-
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 
 public class ProjectFragment extends TimeTrackerFragment implements AdapterView.OnItemSelectedListener{
 

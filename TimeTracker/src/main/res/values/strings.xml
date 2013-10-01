@@ -12,5 +12,7 @@
     <string name="clockInButton">Clock In</string>
     <string name="switchProject">Switch Project</string>
     <string name="projectLabel">Project:</string>
+    <string name="timeInLabel">Time In:</string>
+    <string name="timeOutLabel">Time Out:</string>
 
 </resources>

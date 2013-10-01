@@ -1,14 +1,11 @@
 package com.androidproductions.timetracker;
 
-import android.database.Cursor;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceFragment;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -46,11 +43,15 @@ public class ClockFragment extends TimeTrackerFragment {
         {
             Day day = new Day(date);
             getActivity().getContentResolver().insert(TimesheetContract.CONTENT_URI,day.asContentValues());
+            SharedPreferences mPrefs =  getActivity().getSharedPreferences("TimeTrackerPreferences", Context.MODE_PRIVATE);
+            SharedPreferences.Editor edi = mPrefs.edit();
+            edi.putLong("SwitchTime", Calendar.getInstance(Locale.getDefault()).getTime().getTime());
+            edi.commit();
         }
         else
         {
             today.setTimeOut(Calendar.getInstance(Locale.getDefault()).getTime());
-            getActivity().getContentResolver().update(today.getUri(),today.asContentValues(),null,null);
+            getActivity().getContentResolver().update(today.getUri(), today.asContentValues(), null, null);
         }
         v.setEnabled(false);
     }
