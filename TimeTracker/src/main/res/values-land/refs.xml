@@ -9,4 +9,5 @@
     <item type="layout" name="activity_project_list">@layout/activity_project_twopane</item>
     <item type="layout" name="clock_in">@layout/clock_in_land</item>
     <item type="layout" name="clock_out">@layout/clock_out_land</item>
+    <item type="layout" name="project">@layout/project_land</item>
 </resources>
