@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:text="@string/switchProject"
         android:id="@+id/save"
-        android:layout_below="@+id/project"
+        android:layout_below="@+id/workType"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:onClick="switchProject"/>
@@ -32,5 +32,12 @@
         android:layout_height="wrap_content"
         android:id="@+id/project"
         android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"/>
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/workType"
+        android:layout_below="@+id/project"
         android:layout_centerHorizontal="true"/>
 </RelativeLayout>

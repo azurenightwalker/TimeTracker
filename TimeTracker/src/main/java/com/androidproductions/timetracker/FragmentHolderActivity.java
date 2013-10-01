@@ -73,4 +73,8 @@ public class FragmentHolderActivity extends FragmentActivity {
     public void clock(View view) {
         ((ClockFragment)fragment).clock(view);
     }
+
+    public void switchProject(View view) {
+        ((ProjectFragment)fragment).switchProject(view);
+    }
 }
