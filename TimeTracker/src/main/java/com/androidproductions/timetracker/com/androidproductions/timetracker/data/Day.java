@@ -55,10 +55,10 @@ public class Day {
         Id = -1L;
     }
 
-    public void setProjectHours(String project, int hours)
+    public void setProjectHours(ProjectWork project, int hours)
     {
         try {
-            Projects.put(project,hours);
+            Projects.put(project.toString(),getProjectHours(project.toString())+hours);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -70,7 +70,7 @@ public class Day {
             return Projects.getInt(project);
         } catch (JSONException e) {
             e.printStackTrace();
-            return -1;
+            return 0;
         }
     }
 

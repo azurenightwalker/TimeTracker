@@ -30,20 +30,6 @@ public class TimeTrackerFragment extends Fragment {
 
     protected void findToday()
     {
-        today = null;
-        final Calendar cal = Calendar.getInstance(Locale.getDefault());
-        Cursor c = getActivity().getContentResolver().query(TimesheetContract.CONTENT_URI,null,
-                TimesheetContract.Date + " = ?", new String[] {
-                String.valueOf(new Date(cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(Calendar.DATE))
-                        .getTime())
-        },null);
-        if (c != null)
-        {
-            if (c.moveToFirst())
-            {
-                today = new Day(c);
-            }
-            c.close();
-        }
+        today = DayHelper.findToday(getActivity());
     }
 }
