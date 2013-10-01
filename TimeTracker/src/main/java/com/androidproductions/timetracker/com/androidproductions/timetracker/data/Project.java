@@ -26,4 +26,19 @@ public class Project {
     public String toString() {
         return Name;
     }
+
+    public Boolean hasDev()
+    {
+        return HasDev;
+    }
+
+    public Boolean hasSupport()
+    {
+        return HasSupport;
+    }
+
+    public Boolean hasResearch()
+    {
+        return HasResearch;
+    }
 }

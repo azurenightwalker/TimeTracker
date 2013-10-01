@@ -10,6 +10,7 @@ import com.androidproductions.timetracker.com.androidproductions.timetracker.dat
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -56,5 +57,35 @@ public final class ProjectHelper {
         BigDecimal bd = new BigDecimal(Double.toString(millis / Hour));
         bd = bd.setScale(1, BigDecimal.ROUND_HALF_UP);
         return bd.doubleValue();
+    }
+
+    public static HashMap<ProjectWork,Double> getAllProjectWorks(Day day)
+    {
+        HashMap<ProjectWork,Double> res = new HashMap<ProjectWork, Double>();
+        for(Project pro : getProjectList())
+        {
+            if (pro.hasDev())
+            {
+                ProjectWork pw = new ProjectWork(pro,WorkType.Dev);
+                double hours = day.getProjectHours(pw.toString());
+                if (hours > 0)
+                    res.put(pw,hours);
+            }
+            if (pro.hasSupport())
+            {
+                ProjectWork pw = new ProjectWork(pro,WorkType.Support);
+                double hours = day.getProjectHours(pw.toString());
+                if (hours > 0)
+                    res.put(pw,hours);
+            }
+            if (pro.hasResearch())
+            {
+                ProjectWork pw = new ProjectWork(pro,WorkType.Research);
+                double hours = day.getProjectHours(pw.toString());
+                if (hours > 0)
+                    res.put(pw,hours);
+            }
+        }
+        return res;
     }
 }
