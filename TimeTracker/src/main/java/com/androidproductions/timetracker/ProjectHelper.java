@@ -11,8 +11,10 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 public final class ProjectHelper {
     private static final List<Project> ProjectList = new ArrayList<Project>();
@@ -59,21 +61,14 @@ public final class ProjectHelper {
         return bd.doubleValue();
     }
 
-    public static HashMap<ProjectWork,Double> getAllProjectWorks(Day day)
+    public static Map<ProjectWork,Double> getAllProjectWorks(Day day)
     {
-        HashMap<ProjectWork,Double> res = new HashMap<ProjectWork, Double>();
+        Map<ProjectWork,Double> res = new LinkedHashMap<ProjectWork, Double>();
         for(Project pro : getProjectList())
         {
             if (pro.hasDev())
             {
                 ProjectWork pw = new ProjectWork(pro,WorkType.Dev);
-                double hours = day.getProjectHours(pw.toString());
-                if (hours > 0)
-                    res.put(pw,hours);
-            }
-            if (pro.hasSupport())
-            {
-                ProjectWork pw = new ProjectWork(pro,WorkType.Support);
                 double hours = day.getProjectHours(pw.toString());
                 if (hours > 0)
                     res.put(pw,hours);
@@ -85,7 +80,15 @@ public final class ProjectHelper {
                 if (hours > 0)
                     res.put(pw,hours);
             }
+            if (pro.hasSupport())
+            {
+                ProjectWork pw = new ProjectWork(pro,WorkType.Support);
+                double hours = day.getProjectHours(pw.toString());
+                if (hours > 0)
+                    res.put(pw,hours);
+            }
         }
+        
         return res;
     }
 }
