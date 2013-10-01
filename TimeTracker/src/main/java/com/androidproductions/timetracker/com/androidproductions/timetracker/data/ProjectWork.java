@@ -24,7 +24,7 @@ public class ProjectWork {
     }
 
     public boolean isFor(Project selected, WorkType workType) {
-        return selected.toString() == Name && Type == workType;
+        return selected.toString().equals(Name) && Type == workType;
     }
 
     public String getProject() {

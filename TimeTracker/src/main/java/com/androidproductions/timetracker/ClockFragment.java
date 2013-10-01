@@ -52,5 +52,6 @@ public class ClockFragment extends TimeTrackerFragment {
             today.setTimeOut(Calendar.getInstance(Locale.getDefault()).getTime());
             getActivity().getContentResolver().update(today.getUri(),today.asContentValues(),null,null);
         }
+        v.setEnabled(false);
     }
 }
