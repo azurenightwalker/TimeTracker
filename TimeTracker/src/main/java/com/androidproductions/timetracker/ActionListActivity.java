@@ -30,14 +30,24 @@ public class ActionListActivity extends FragmentActivity
      * device.
      */
     private boolean mTwoPane;
+    private ActionMethod mMethod;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        InitializeUI(null);
+        super.onCreate(null);
+        if (savedInstanceState != null && savedInstanceState.containsKey("frag"))
+            mMethod = ActionMethod.parse(savedInstanceState.getInt("frag"));
+        InitializeUI();
     }
 
-    private void InitializeUI(ActionMethod method) {
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (mMethod != null)
+            outState.putInt("frag", mMethod.Value);
+    }
+
+    private void InitializeUI() {
         setContentView(R.layout.activity_project_list);
 
         if (findViewById(R.id.project_detail_container) != null) {
@@ -53,12 +63,10 @@ public class ActionListActivity extends FragmentActivity
                     .findFragmentById(R.id.project_list))
                     .setActivateOnItemClick(true);
         }
-        if (method != null)
+        if (mMethod != null)
         {
-            onItemSelected(method);
+            onItemSelected(mMethod);
         }
-
-        // TODO: If exposing deep links into your app, handle intents here.
     }
 
     /**
@@ -67,27 +75,21 @@ public class ActionListActivity extends FragmentActivity
      */
     @Override
     public void onItemSelected(ActionMethod method) {
-        ActionMethod mSelected = method;
+        mMethod = method;
         if (mTwoPane) {
             // In two-pane mode, show the detail view in this activity by
             // adding or replacing the detail fragment using a
             // fragment transaction.
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.project_detail_container, FragmentHelper.getFragmentByAction(mSelected))
+                    .replace(R.id.project_detail_container, FragmentHelper.getFragmentByAction(method))
                     .commit();
         } else {
             // In single-pane mode, simply start the detail activity
             // for the selected item ID.
             Intent detailIntent = new Intent(this, FragmentHolderActivity.class);
-            detailIntent.putExtra(FragmentHolderActivity.FRAGMENT_ID, mSelected.Value);
+            detailIntent.putExtra(FragmentHolderActivity.FRAGMENT_ID, method.Value);
             startActivity(detailIntent);
         }
     }
 
-    @Override
-    public void onConfigurationChanged(Configuration newConfig)
-    {
-        super.onConfigurationChanged(newConfig);
-        /*InitializeUI(mSelected);*/
-    }
 }
