@@ -10,7 +10,6 @@ import com.androidproductions.timetracker.com.androidproductions.timetracker.dat
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
@@ -22,7 +21,7 @@ public final class ProjectHelper {
     static {
         ProjectList.add(new Project("Portal"));
         ProjectList.add(new Project("NPEx"));
-        ProjectList.add(new Project("QTool"));
+        ProjectList.add(new Project("QTool",true,true,false));
     }
 
     public static List<Project> getProjectList() {
@@ -66,23 +65,9 @@ public final class ProjectHelper {
         Map<ProjectWork,Double> res = new LinkedHashMap<ProjectWork, Double>();
         for(Project pro : getProjectList())
         {
-            if (pro.hasDev())
+            for(WorkType wt : pro.getWorkTypes())
             {
-                ProjectWork pw = new ProjectWork(pro,WorkType.Dev);
-                double hours = day.getProjectHours(pw.toString());
-                if (hours > 0)
-                    res.put(pw,hours);
-            }
-            if (pro.hasResearch())
-            {
-                ProjectWork pw = new ProjectWork(pro,WorkType.Research);
-                double hours = day.getProjectHours(pw.toString());
-                if (hours > 0)
-                    res.put(pw,hours);
-            }
-            if (pro.hasSupport())
-            {
-                ProjectWork pw = new ProjectWork(pro,WorkType.Support);
+                ProjectWork pw = new ProjectWork(pro,wt);
                 double hours = day.getProjectHours(pw.toString());
                 if (hours > 0)
                     res.put(pw,hours);

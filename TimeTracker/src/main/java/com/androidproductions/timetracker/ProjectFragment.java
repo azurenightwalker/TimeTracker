@@ -38,7 +38,7 @@ public class ProjectFragment extends TimeTrackerFragment implements AdapterView.
         workTypeSpinner.setAdapter(new ArrayAdapter<WorkType>(
                 getActivity(),
                 android.R.layout.simple_list_item_activated_1,
-                WorkType.values()
+                ((Project)projectSpinner.getSelectedItem()).getWorkTypes()
         ));
         workTypeSpinner.setOnItemSelectedListener(this);
 
@@ -66,6 +66,12 @@ public class ProjectFragment extends TimeTrackerFragment implements AdapterView.
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        if (adapterView == projectSpinner)
+            workTypeSpinner.setAdapter(new ArrayAdapter<WorkType>(
+                    getActivity(),
+                    android.R.layout.simple_list_item_activated_1,
+                    ((Project)projectSpinner.getSelectedItem()).getWorkTypes()
+            ));
         updateView();
     }
 

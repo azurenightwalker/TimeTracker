@@ -1,5 +1,10 @@
 package com.androidproductions.timetracker.com.androidproductions.timetracker.data;
 
+import com.androidproductions.timetracker.WorkType;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Project {
     private final String Name;
     private final Boolean HasDev;
@@ -40,5 +45,17 @@ public class Project {
     public Boolean hasResearch()
     {
         return HasResearch;
+    }
+
+    public List<WorkType> getWorkTypes()
+    {
+        List<WorkType> res = new ArrayList<WorkType>();
+        if (hasDev())
+            res.add(WorkType.Dev);
+        if (hasResearch())
+            res.add(WorkType.Research);
+        if (hasSupport())
+            res.add(WorkType.Support);
+        return res;
     }
 }
