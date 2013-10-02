@@ -3,8 +3,8 @@ package com.androidproductions.timetracker;
 import android.content.Context;
 import android.database.Cursor;
 
-import com.androidproductions.timetracker.com.androidproductions.timetracker.data.Day;
-import com.androidproductions.timetracker.com.androidproductions.timetracker.data.TimesheetContract;
+import com.androidproductions.timetracker.data.Day;
+import com.androidproductions.timetracker.data.TimesheetContract;
 
 import java.util.Calendar;
 import java.util.Date;

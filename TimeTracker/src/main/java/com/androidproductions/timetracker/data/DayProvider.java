@@ -1,4 +1,4 @@
-package com.androidproductions.timetracker.com.androidproductions.timetracker.data;
+package com.androidproductions.timetracker.data;
 
 import android.content.ContentProvider;
 import android.content.ContentUris;

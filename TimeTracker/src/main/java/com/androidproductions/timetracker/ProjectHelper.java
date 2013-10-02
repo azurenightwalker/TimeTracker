@@ -3,9 +3,9 @@ package com.androidproductions.timetracker;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.androidproductions.timetracker.com.androidproductions.timetracker.data.Day;
-import com.androidproductions.timetracker.com.androidproductions.timetracker.data.Project;
-import com.androidproductions.timetracker.com.androidproductions.timetracker.data.ProjectWork;
+import com.androidproductions.timetracker.data.Day;
+import com.androidproductions.timetracker.data.Project;
+import com.androidproductions.timetracker.data.ProjectWork;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -43,7 +43,7 @@ public final class ProjectHelper {
         Day today = DayHelper.findToday(context);
         today.addProjectHours(old, workOutHours(context, today));
         SharedPreferences.Editor edi = mPrefs.edit();
-        edi.putString("Project",projectWork.getProject());
+        edi.putString("Project",projectWork.getProjectName());
         edi.putInt("WorkType", projectWork.getWorkType().Value);
         edi.putLong("SwitchTime", Calendar.getInstance(Locale.getDefault()).getTime().getTime());
         edi.commit();

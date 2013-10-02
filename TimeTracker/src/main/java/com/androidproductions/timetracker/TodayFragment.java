@@ -7,9 +7,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.androidproductions.timetracker.com.androidproductions.timetracker.data.ProjectWork;
+import com.androidproductions.timetracker.data.ProjectWork;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class TodayFragment extends TimeTrackerFragment {

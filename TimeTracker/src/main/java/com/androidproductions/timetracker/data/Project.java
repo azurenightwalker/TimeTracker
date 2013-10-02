@@ -1,4 +1,4 @@
-package com.androidproductions.timetracker.com.androidproductions.timetracker.data;
+package com.androidproductions.timetracker.data;
 
 import com.androidproductions.timetracker.WorkType;
 
@@ -57,5 +57,25 @@ public class Project {
         if (hasSupport())
             res.add(WorkType.Support);
         return res;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Project other = (Project) obj;
+
+        return this.toString().equals(other.toString());
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 53 * hash + this.toString().hashCode();
+        return hash;
     }
 }

@@ -26,7 +26,7 @@
         <activity
             android:name=".FragmentHolderActivity" />
         <provider android:authorities="com.androidproductions.timetracker"
-            android:name=".com.androidproductions.timetracker.data.DayProvider"/>
+            android:name=".data.DayProvider"/>
     </application>
 
 </manifest>

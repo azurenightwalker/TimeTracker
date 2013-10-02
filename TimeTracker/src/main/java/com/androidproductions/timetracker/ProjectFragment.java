@@ -8,17 +8,23 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
-import com.androidproductions.timetracker.com.androidproductions.timetracker.data.Project;
-import com.androidproductions.timetracker.com.androidproductions.timetracker.data.ProjectWork;
+import com.androidproductions.timetracker.data.Project;
+import com.androidproductions.timetracker.data.ProjectWork;
+
+import java.util.List;
 
 public class ProjectFragment extends TimeTrackerFragment implements AdapterView.OnItemSelectedListener{
 
     private Spinner projectSpinner;
     private Spinner workTypeSpinner;
     private View save;
+    private List<Project> projectList;
+    private List<WorkType> workTypes;
+    private ProjectWork CurrentProject;
 
     public ProjectFragment() {
         super();
+        projectList = ProjectHelper.getProjectList();
     }
 
     @Override
@@ -26,52 +32,61 @@ public class ProjectFragment extends TimeTrackerFragment implements AdapterView.
                              Bundle savedInstanceState) {
         findToday();
         View v = inflater.inflate(R.layout.project, container, false);
-        projectSpinner = (Spinner)v.findViewById(R.id.project);
-        projectSpinner.setAdapter(new ArrayAdapter<Project>(
-                getActivity(),
-                android.R.layout.simple_list_item_activated_1,
-                ProjectHelper.getProjectList()
-        ));
-        projectSpinner.setOnItemSelectedListener(this);
-
-        workTypeSpinner = (Spinner)v.findViewById(R.id.workType);
-        workTypeSpinner.setAdapter(new ArrayAdapter<WorkType>(
-                getActivity(),
-                android.R.layout.simple_list_item_activated_1,
-                ((Project)projectSpinner.getSelectedItem()).getWorkTypes()
-        ));
-        workTypeSpinner.setOnItemSelectedListener(this);
-
-        save = v.findViewById(R.id.save);
+        InitView(v);
         updateView();
         return v;
     }
 
-    public void switchProject(View view)
+    private void InitView(View v)
     {
-        Project project = (Project)projectSpinner.getSelectedItem();
-        WorkType workType = (WorkType)workTypeSpinner.getSelectedItem();
-        ProjectWork projectWork = new ProjectWork(project,workType);
-        ProjectHelper.setCurrentProject(getActivity(),projectWork);
-        updateView();
+        projectSpinner = (Spinner)v.findViewById(R.id.project);
+        projectSpinner.setAdapter(new ArrayAdapter<Project>(
+                getActivity(),
+                android.R.layout.simple_list_item_activated_1,
+                projectList
+        ));
+        projectSpinner.setOnItemSelectedListener(this);
+
+        workTypeSpinner = (Spinner)v.findViewById(R.id.workType);
+        workTypeSpinner.setOnItemSelectedListener(this);
+
+        CurrentProject = ProjectHelper.getCurrentProject(getActivity());
+        projectSpinner.setSelection(Math.max(projectList.indexOf(CurrentProject.getProject()),0));
+        UpdateWorkTypes();
+        workTypeSpinner.setSelection(Math.max(workTypes.indexOf(CurrentProject.getWorkType()),0));
+        save = v.findViewById(R.id.save);
+    }
+
+    private void UpdateWorkTypes()
+    {
+        workTypes = ((Project) projectSpinner.getSelectedItem()).getWorkTypes();
+        workTypeSpinner.setAdapter(new ArrayAdapter<WorkType>(
+                getActivity(),
+                android.R.layout.simple_list_item_activated_1,
+                workTypes
+        ));
     }
 
     public void updateView()
     {
         Project selected = (Project)projectSpinner.getSelectedItem();
         WorkType workType = (WorkType)workTypeSpinner.getSelectedItem();
-        ProjectWork projectWork = ProjectHelper.getCurrentProject(getActivity());
-        save.setEnabled(!projectWork.isFor(selected,workType));
+        save.setEnabled(!CurrentProject.isFor(selected,workType));
+    }
+
+    public void switchProject(View view)
+    {
+        Project project = (Project)projectSpinner.getSelectedItem();
+        WorkType workType = (WorkType)workTypeSpinner.getSelectedItem();
+        CurrentProject = new ProjectWork(project,workType);
+        ProjectHelper.setCurrentProject(getActivity(),CurrentProject);
+        updateView();
     }
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         if (adapterView == projectSpinner)
-            workTypeSpinner.setAdapter(new ArrayAdapter<WorkType>(
-                    getActivity(),
-                    android.R.layout.simple_list_item_activated_1,
-                    ((Project)projectSpinner.getSelectedItem()).getWorkTypes()
-            ));
+            UpdateWorkTypes();
         updateView();
     }
 

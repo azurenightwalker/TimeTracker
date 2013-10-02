@@ -1,34 +1,38 @@
-package com.androidproductions.timetracker.com.androidproductions.timetracker.data;
+package com.androidproductions.timetracker.data;
 
 import com.androidproductions.timetracker.WorkType;
 
 public class ProjectWork {
-    private final String Name;
     private final WorkType Type;
+    private final Project Project;
 
     public ProjectWork(String name, WorkType workType)
     {
-        Name = name;
         Type = workType;
+        Project = new Project(name);
     }
 
     public ProjectWork(Project project, WorkType workType)
     {
-        Name = project.toString();
+        Project = project;
         Type = workType;
     }
 
     @Override
     public String toString() {
-        return Name + " - " + Type.toString();
+        return Project.toString() + " - " + Type.toString();
     }
 
     public boolean isFor(Project selected, WorkType workType) {
-        return selected.toString().equals(Name) && Type == workType;
+        return selected.equals(Project) && Type == workType;
     }
 
-    public String getProject() {
-        return Name;
+    public String getProjectName() {
+        return Project.toString();
+    }
+
+    public Project getProject() {
+        return Project;
     }
 
     public WorkType getWorkType() {
