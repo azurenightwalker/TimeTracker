@@ -6,10 +6,28 @@
     tools:context=".FragmentHolderActivity"
     tools:ignore="MergeRootFrame">
 
+    <DatePicker
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/datePicker"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:calendarViewShown="false"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/updateButton"
+        android:id="@+id/save"
+        android:layout_below="@+id/datePicker"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:onClick="updateDay"/>
+
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_below="@id/save"
         android:layout_alignParentLeft="true"
         android:id="@+id/clockInRow"
         android:weightSum="4">
@@ -56,4 +74,6 @@
         android:layout_alignParentLeft="true"
         android:id="@+id/projectHolder"
         android:orientation="vertical"/>
+
+
 </RelativeLayout>

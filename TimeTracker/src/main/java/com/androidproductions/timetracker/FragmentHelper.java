@@ -15,7 +15,7 @@ public final class FragmentHelper {
             case SwitchProject:
                 return new ProjectFragment();
             case ViewDay:
-                return new TodayFragment();
+                return new DayFragment();
             default:
                 Bundle arguments = new Bundle();
                 arguments.putString(ProjectDetailFragment.ARG_ITEM_ID, actionMethod.toString());

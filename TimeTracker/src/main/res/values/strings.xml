@@ -14,5 +14,6 @@
     <string name="projectLabel">Project:</string>
     <string name="timeInLabel">Time In:</string>
     <string name="timeOutLabel">Time Out:</string>
+    <string name="updateButton">Update</string>
 
 </resources>

@@ -13,21 +13,25 @@ import java.util.Locale;
 public final class DayHelper {
     public static Day findToday(Context context)
     {
-        Day today = null;
         final Calendar cal = Calendar.getInstance(Locale.getDefault());
+        return findDay(context,new Date(cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(Calendar.DATE)));
+    }
+
+    public static Day findDay(Context context, Date date)
+    {
+        Day day = null;
         Cursor c = context.getContentResolver().query(TimesheetContract.CONTENT_URI,null,
                 TimesheetContract.Date + " = ?", new String[] {
-                String.valueOf(new Date(cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(Calendar.DATE))
-                        .getTime())
+                String.valueOf(date.getTime())
         },null);
         if (c != null)
         {
             if (c.moveToFirst())
             {
-                today = new Day(c);
+                day = new Day(c);
             }
             c.close();
         }
-        return today;
+        return day;
     }
 }
