@@ -15,5 +15,7 @@
     <string name="timeInLabel">Time In:</string>
     <string name="timeOutLabel">Time Out:</string>
     <string name="updateButton">Update</string>
+    <string name="noClockIn">Can\'t clock in in the future!</string>
+    <string name="noClockOut">Can\'t clock out in the future!</string>
 
 </resources>

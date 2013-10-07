@@ -13,24 +13,45 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/clockInTitle"
         android:id="@+id/clockInText"
-        android:layout_above="@+id/time"
+        android:layout_above="@+id/spinners"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinners"
+        android:orientation="vertical"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" >
+
+        <TimePicker
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/time"
+             />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/project" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/workType" />
+
+    </LinearLayout>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/clockInButton"
         android:id="@+id/save"
-        android:layout_below="@+id/time"
+        android:layout_below="@+id/spinners"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:onClick="clock"/>
 
-    <TimePicker
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/time"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>

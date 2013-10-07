@@ -21,7 +21,7 @@ public final class ProjectHelper {
     static {
         ProjectList.add(new Project("Portal"));
         ProjectList.add(new Project("NPEx"));
-        ProjectList.add(new Project("QTool",true,true,false));
+        ProjectList.add(new Project("QTool"));
     }
 
     public static List<Project> getProjectList() {
@@ -41,7 +41,7 @@ public final class ProjectHelper {
         ProjectWork old = getCurrentProject(context);
         SharedPreferences mPrefs = context.getSharedPreferences("TimeTrackerPreferences", Context.MODE_PRIVATE);
         Day today = DayHelper.findToday(context);
-        today.addProjectHours(old, workOutHours(context, today));
+        today.addProjectHours(old, workOutHours(context));
         SharedPreferences.Editor edi = mPrefs.edit();
         edi.putString("Project",projectWork.getProjectName());
         edi.putInt("WorkType", projectWork.getWorkType().Value);
@@ -50,7 +50,18 @@ public final class ProjectHelper {
         context.getContentResolver().update(today.getUri(),today.asContentValues(),null,null);
     }
 
-    private static double workOutHours(Context context, Day today)
+    public static void stopProject(Context context) {
+        ProjectWork old = getCurrentProject(context);
+        SharedPreferences mPrefs = context.getSharedPreferences("TimeTrackerPreferences", Context.MODE_PRIVATE);
+        Day today = DayHelper.findToday(context);
+        today.addProjectHours(old, workOutHours(context));
+        SharedPreferences.Editor edi = mPrefs.edit();
+        edi.putLong("SwitchTime", Calendar.getInstance(Locale.getDefault()).getTime().getTime());
+        edi.commit();
+        context.getContentResolver().update(today.getUri(),today.asContentValues(),null,null);
+    }
+
+    private static double workOutHours(Context context)
     {
         SharedPreferences mPrefs = context.getSharedPreferences("TimeTrackerPreferences", Context.MODE_PRIVATE);
         Calendar cal = Calendar.getInstance(Locale.getDefault());

@@ -77,4 +77,8 @@ public class FragmentHolderActivity extends FragmentActivity {
     public void switchProject(View view) {
         ((ProjectFragment)fragment).switchProject(view);
     }
+
+    public void updateDay(View view) {
+        ((DayFragment)fragment).updateDay();
+    }
 }
