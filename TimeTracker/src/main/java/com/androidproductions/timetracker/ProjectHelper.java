@@ -25,7 +25,7 @@ public final class ProjectHelper {
     }
 
     public static List<Project> getProjectList() {
-        // TODO: Fetch these, no need to be hard-coded
+        // TODO: Fetch these using NetworkHelper
         return ProjectList;
     }
 

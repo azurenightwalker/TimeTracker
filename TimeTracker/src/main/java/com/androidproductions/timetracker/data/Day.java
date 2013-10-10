@@ -91,4 +91,9 @@ public class Day {
     public Date getTimeIn() {
         return TimeIn;
     }
+
+    public void pushData()
+    {
+        //TODO: Push to server
+    }
 }
