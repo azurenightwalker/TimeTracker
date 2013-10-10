@@ -1,4 +1,4 @@
-package com.androidproductions.timetracker.data;
+package uk.co.xlabsystems.timetracker.data;
 
 import android.content.ContentProvider;
 import android.content.ContentUris;
@@ -15,7 +15,7 @@ public class DayProvider extends ContentProvider
     private static final int DAYS = 1;
 
     private static final String PROVIDER_NAME =
-            "com.androidproductions.timetracker";
+            "uk.co.xlabsystems.timetracker";
     private static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
     static {
         uriMatcher.addURI(PROVIDER_NAME, "days", DAYS);
@@ -56,9 +56,9 @@ public class DayProvider extends ContentProvider
         switch(uriMatcher.match(uri))
         {
             case DAY:
-                return "vnd.android.cursor.dir/vnd.com.androidproductions.timetracker.day";
+                return "vnd.android.cursor.dir/vnd.uk.co.xlabsystems.timetracker.day";
             case DAYS:
-                return "vnd.android.cursor.item/vnd.com.com.androidproductions.timetracker.day";
+                return "vnd.android.cursor.item/vnd.com.uk.co.xlabsystems.timetracker.day";
             default:
                 return null;
         }

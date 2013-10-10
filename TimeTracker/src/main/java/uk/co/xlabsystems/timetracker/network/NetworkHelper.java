@@ -1,4 +1,4 @@
-package com.androidproductions.timetracker.network;
+package uk.co.xlabsystems.timetracker.network;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;

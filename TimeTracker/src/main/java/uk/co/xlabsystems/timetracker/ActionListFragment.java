@@ -1,4 +1,4 @@
-package com.androidproductions.timetracker;
+package uk.co.xlabsystems.timetracker;
 
 import android.app.Activity;
 import android.os.Bundle;

@@ -1,4 +1,4 @@
-package com.androidproductions.timetracker;
+package uk.co.xlabsystems.timetracker;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,10 +12,10 @@ import android.view.View;
  * An activity representing a single Project detail screen. This
  * activity is only used on handset devices. On tablet-size devices,
  * item details are presented side-by-side with a list of items
- * in a {@link com.androidproductions.timetracker.ActionListActivity}.
+ * in a {@link uk.co.xlabsystems.timetracker.ActionListActivity}.
  * <p>
  * This activity is mostly just a 'shell' activity containing nothing
- * more than a {@link com.androidproductions.timetracker.ProjectDetailFragment}.
+ * more than a {@link uk.co.xlabsystems.timetracker.ProjectDetailFragment}.
  */
 public class FragmentHolderActivity extends FragmentActivity {
     public static final String FRAGMENT_ID = "FragmentId";

@@ -1,6 +1,6 @@
-package com.androidproductions.timetracker.data;
+package uk.co.xlabsystems.timetracker.data;
 
-import com.androidproductions.timetracker.WorkType;
+import uk.co.xlabsystems.timetracker.WorkType;
 
 import java.util.ArrayList;
 import java.util.List;

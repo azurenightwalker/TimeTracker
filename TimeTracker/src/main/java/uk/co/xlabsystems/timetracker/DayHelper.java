@@ -1,10 +1,10 @@
-package com.androidproductions.timetracker;
+package uk.co.xlabsystems.timetracker;
 
 import android.content.Context;
 import android.database.Cursor;
 
-import com.androidproductions.timetracker.data.Day;
-import com.androidproductions.timetracker.data.TimesheetContract;
+import uk.co.xlabsystems.timetracker.data.Day;
+import uk.co.xlabsystems.timetracker.data.TimesheetContract;
 
 import java.util.Calendar;
 import java.util.Date;

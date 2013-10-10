@@ -1,4 +1,4 @@
-package com.androidproductions.timetracker.data;
+package uk.co.xlabsystems.timetracker.data;
 
 import android.net.Uri;
 
@@ -11,7 +11,7 @@ public final class TimesheetContract {
     public static final String Projects = "projects";
 
     public static final Uri CONTENT_URI =
-            Uri.parse("content://com.androidproductions.timetracker/days");
+            Uri.parse("content://uk.co.xlabsystems.timetracker/days");
 
     public static final String[] PROJECTION = new String[] {
             TimesheetContract._ID,

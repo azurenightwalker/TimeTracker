@@ -1,4 +1,4 @@
-package com.androidproductions.timetracker;
+package uk.co.xlabsystems.timetracker;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,8 +8,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
-import com.androidproductions.timetracker.data.Project;
-import com.androidproductions.timetracker.data.ProjectWork;
+import uk.co.xlabsystems.timetracker.data.Project;
+import uk.co.xlabsystems.timetracker.data.ProjectWork;
 
 import java.util.List;
 

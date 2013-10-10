@@ -1,4 +1,4 @@
-package com.androidproductions.timetracker;
+package uk.co.xlabsystems.timetracker;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,8 +9,8 @@ import android.widget.TextView;
 
 /**
  * A fragment representing a single Project detail screen.
- * This fragment is either contained in a {@link com.androidproductions.timetracker.ActionListActivity}
- * in two-pane mode (on tablets) or a {@link com.androidproductions.timetracker.FragmentHolderActivity}
+ * This fragment is either contained in a {@link uk.co.xlabsystems.timetracker.ActionListActivity}
+ * in two-pane mode (on tablets) or a {@link uk.co.xlabsystems.timetracker.FragmentHolderActivity}
  * on handsets.
  */
 public class ConfigureFragment extends Fragment {

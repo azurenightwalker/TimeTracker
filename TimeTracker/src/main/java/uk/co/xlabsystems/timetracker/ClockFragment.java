@@ -1,4 +1,4 @@
-package com.androidproductions.timetracker;
+package uk.co.xlabsystems.timetracker;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -12,10 +12,10 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.androidproductions.timetracker.data.Day;
-import com.androidproductions.timetracker.data.Project;
-import com.androidproductions.timetracker.data.ProjectWork;
-import com.androidproductions.timetracker.data.TimesheetContract;
+import uk.co.xlabsystems.timetracker.data.Day;
+import uk.co.xlabsystems.timetracker.data.Project;
+import uk.co.xlabsystems.timetracker.data.ProjectWork;
+import uk.co.xlabsystems.timetracker.data.TimesheetContract;
 
 import java.util.Calendar;
 import java.util.Date;

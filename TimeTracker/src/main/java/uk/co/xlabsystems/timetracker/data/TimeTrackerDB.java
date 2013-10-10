@@ -1,4 +1,4 @@
-package com.androidproductions.timetracker.data;
+package uk.co.xlabsystems.timetracker.data;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

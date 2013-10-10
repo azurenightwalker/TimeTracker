@@ -1,6 +1,6 @@
-package com.androidproductions.timetracker.data;
+package uk.co.xlabsystems.timetracker.data;
 
-import com.androidproductions.timetracker.WorkType;
+import uk.co.xlabsystems.timetracker.WorkType;
 
 public class ProjectWork {
     private final WorkType Type;

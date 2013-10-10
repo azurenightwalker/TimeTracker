@@ -1,4 +1,4 @@
-package com.androidproductions.timetracker;
+package uk.co.xlabsystems.timetracker;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -9,7 +9,7 @@ import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.androidproductions.timetracker.data.ProjectWork;
+import uk.co.xlabsystems.timetracker.data.ProjectWork;
 
 import java.util.Calendar;
 import java.util.Date;
