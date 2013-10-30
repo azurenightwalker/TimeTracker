@@ -2,3 +2,11 @@
 /local.properties
 /.idea/workspace.xml
 .DS_Store
+Android Service/SelfHostedRESTService/ClientForRESTSelfHosted/bin/
+Android Service/SelfHostedRESTService/ClientForRESTSelfHosted/obj/
+Android Service/SelfHostedRESTService/Contracts/obj/
+Android Service/SelfHostedRESTService/Contracts/bin/
+Android Service/SelfHostedRESTService/SelfHostedRESTService/bin/
+Android Service/SelfHostedRESTService/SelfHostedRESTService/obj/
+Android Service/SelfHostedRESTService/TimesheetData/bin/
+Android Service/SelfHostedRESTService/TimesheetData/obj/
