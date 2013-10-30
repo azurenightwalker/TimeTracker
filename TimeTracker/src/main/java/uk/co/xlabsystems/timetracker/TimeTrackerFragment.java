@@ -3,10 +3,14 @@ package uk.co.xlabsystems.timetracker;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
-import uk.co.xlabsystems.timetracker.data.Day;
+import java.util.List;
 
-public class TimeTrackerFragment extends Fragment {
+import uk.co.xlabsystems.timetracker.data.Day;
+import uk.co.xlabsystems.timetracker.data.Project;
+
+public abstract class TimeTrackerFragment extends Fragment {
     protected Day today;
+    protected List<Project> ProjectList;
 
     public TimeTrackerFragment() {
     }
@@ -17,8 +21,19 @@ public class TimeTrackerFragment extends Fragment {
         setRetainInstance(true);
     }
 
-    protected void findToday()
+    protected final void findToday()
     {
         today = DayHelper.findToday(getActivity());
+    }
+
+    protected final void updateProjects(List<Project> projects)
+    {
+        ProjectList = projects;
+        updateProjectView();
+    }
+
+    protected void updateProjectView()
+    {
+
     }
 }

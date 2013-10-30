@@ -24,7 +24,7 @@ import java.util.Locale;
 
 public class ClockFragment extends TimeTrackerFragment  implements AdapterView.OnItemSelectedListener {
     private final Boolean mIsIn;
-    private final List<Project> projectList;
+
     private TimePicker timePicker;
     private Spinner projectSpinner;
     private Spinner workTypeSpinner;
@@ -34,7 +34,8 @@ public class ClockFragment extends TimeTrackerFragment  implements AdapterView.O
     public ClockFragment(Boolean isIn) {
         super();
         mIsIn = isIn;
-        projectList = ProjectHelper.getProjectList();
+        //projectList = ProjectHelper.getProjectList();
+        new ProjectDataTask().execute(this);
     }
 
     @Override
@@ -87,18 +88,22 @@ public class ClockFragment extends TimeTrackerFragment  implements AdapterView.O
     private void InitView(View v)
     {
         projectSpinner = (Spinner)v.findViewById(R.id.project);
+        workTypeSpinner = (Spinner)v.findViewById(R.id.workType);
+    }
+
+    private void UpdateView()
+    {
         projectSpinner.setAdapter(new ArrayAdapter<Project>(
                 getActivity(),
                 android.R.layout.simple_list_item_activated_1,
-                projectList
+                ProjectList
         ));
         projectSpinner.setOnItemSelectedListener(this);
 
-        workTypeSpinner = (Spinner)v.findViewById(R.id.workType);
+        CurrentProject = ProjectHelper.getCurrentProject(getActivity());
+        projectSpinner.setSelection(Math.max(ProjectList.indexOf(CurrentProject.getProject()),0));
         workTypeSpinner.setOnItemSelectedListener(this);
 
-        CurrentProject = ProjectHelper.getCurrentProject(getActivity());
-        projectSpinner.setSelection(Math.max(projectList.indexOf(CurrentProject.getProject()),0));
         UpdateWorkTypes();
         workTypeSpinner.setSelection(Math.max(workTypes.indexOf(CurrentProject.getWorkType()),0));
     }
@@ -106,11 +111,23 @@ public class ClockFragment extends TimeTrackerFragment  implements AdapterView.O
     private void UpdateWorkTypes()
     {
         workTypes = ((Project) projectSpinner.getSelectedItem()).getWorkTypes();
-        workTypeSpinner.setAdapter(new ArrayAdapter<WorkType>(
-                getActivity(),
-                android.R.layout.simple_list_item_activated_1,
-                workTypes
-        ));
+        if (workTypes.size() == 0)
+        {
+            workTypeSpinner.setVisibility(View.GONE);
+            workTypeSpinner.setAdapter(new ArrayAdapter<WorkType>(
+                    getActivity(),
+                    android.R.layout.simple_list_item_activated_1,
+                    workTypes));
+        }else{
+            workTypeSpinner.setVisibility(View.VISIBLE);
+            workTypeSpinner.setAdapter(new ArrayAdapter<WorkType>(
+                    getActivity(),
+                    android.R.layout.simple_list_item_activated_1,
+                    workTypes));
+        }
+
+
+
     }
 
     @Override
@@ -122,5 +139,11 @@ public class ClockFragment extends TimeTrackerFragment  implements AdapterView.O
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
+    }
+
+    @Override
+    protected void updateProjectView()
+    {
+        UpdateView();
     }
 }

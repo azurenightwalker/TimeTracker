@@ -3,10 +3,19 @@ package uk.co.xlabsystems.timetracker;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import uk.co.xlabsystems.timetracker.data.Day;
 import uk.co.xlabsystems.timetracker.data.Project;
 import uk.co.xlabsystems.timetracker.data.ProjectWork;
+import uk.co.xlabsystems.timetracker.network.NetworkHelper;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -18,14 +27,37 @@ import java.util.Map;
 public final class ProjectHelper {
     private static final List<Project> ProjectList = new ArrayList<Project>();
     private static final double Hour = 1000 * 60 * 60; // Milliseconds * Seconds * Minutes
-    static {
-        ProjectList.add(new Project("Portal"));
-        ProjectList.add(new Project("NPEx"));
-        ProjectList.add(new Project("QTool"));
-    }
 
     public static List<Project> getProjectList() {
         // TODO: Fetch these using NetworkHelper
+        //
+        JSONArray project = NetworkHelper.getInstance().GetArray("GetProjects");
+        if (project != null)
+        {
+            try {
+                ProjectList.clear();
+
+                for(int i=0; i<project.length(); i++)
+                {
+                    JSONObject temp = project.getJSONObject(i);
+
+                    ProjectList.add(new Project(
+                            temp.getString("Name"),
+                            temp.getBoolean("HasDev"),
+                            temp.getBoolean("HasSupport"),
+                            temp.getBoolean("HasResearch")
+                    ));
+                }
+            }
+            catch(JSONException e){
+                //ProjectList.add(new Project("No Projects"));
+            }
+        }
+        else if (ProjectList.size() == 0)
+        {
+            ProjectList.add(new Project("No Projects", false, false, false));
+        }
+
         return ProjectList;
     }
 
