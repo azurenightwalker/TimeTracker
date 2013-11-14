@@ -21,6 +21,7 @@ namespace TimesheetData.Models.Mapping
             this.Property(t => t.HasDev).HasColumnName("HasDev");
             this.Property(t => t.HasSupport).HasColumnName("HasSupport");
             this.Property(t => t.HasResearch).HasColumnName("HasResearch");
+            this.Property(t => t.HasSales).HasColumnName("HasSales");
             this.Property(t => t.Active).HasColumnName("Active");
         }
     }

@@ -4,15 +4,15 @@ using TimesheetData.Models.Mapping;
 
 namespace TimesheetData.Models
 {
-    public partial class XLabTimesheetsContext : DbContext
+    public partial class TimesheetsContext : DbContext
     {
-        static XLabTimesheetsContext()
+        static TimesheetsContext()
         {
-            Database.SetInitializer<XLabTimesheetsContext>(null);
+            Database.SetInitializer<TimesheetsContext>(null);
         }
 
-        public XLabTimesheetsContext()
-            : base("Name=XLabTimesheetsContext")
+        public TimesheetsContext()
+            : base("Name=TimesheetsContext")
         {
         }
 

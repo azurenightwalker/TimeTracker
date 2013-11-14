@@ -64,10 +64,9 @@ public class DayFragment extends TimeTrackerFragment {
             Map<ProjectWork, Double> works = ProjectHelper.getAllProjectWorks(today);
             for(ProjectWork key : works.keySet())
             {
-                View row = inflater.inflate(R.layout.project_row, null, false);
+                View row = inflater.inflate(R.layout.project_row, projects, true);
                 ((TextView)row.findViewById(R.id.projectLabel)).setText(key.toString());
                 ((TextView)row.findViewById(R.id.projectHours)).setText(String.valueOf(works.get(key).doubleValue()));
-                projects.addView(row);
             }
         }
     }

@@ -9,23 +9,25 @@ using System.Web.Script.Serialization;
 
 namespace SelfHostedRESTService
 {
-    public class Service :IService
+    public class Service : IService
     {
         public List<data> GetProjects()
         {
-            var tdb = new XLabTimesheetsContext();
+            var tdb = new TimesheetsContext();
 
-            return tdb.Projects.Where(a => a.Active).Select(a => new data{
-                   Name = a.Name,
-                   HasDev = a.HasDev,
-                   HasResearch = a.HasResearch,
-                   HasSupport = a.HasSupport
+            return tdb.Projects.Where(a => a.Active).Select(a => new data
+            {
+                Name = a.Name,
+                HasDev = a.HasDev,
+                HasResearch = a.HasResearch,
+                HasSupport = a.HasSupport,
+                HasSales = a.HasSales
             }).ToList();
         }
 
         public string PutHours(string hours)
         {
-            return "Calling Post for you " + hours; 
+            return "Calling Post for you " + hours;
         }
     }
 }

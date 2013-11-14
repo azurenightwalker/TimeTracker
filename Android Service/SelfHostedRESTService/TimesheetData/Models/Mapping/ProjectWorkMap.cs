@@ -26,6 +26,7 @@ namespace TimesheetData.Models.Mapping
             this.Property(t => t.Project).HasColumnName("Project");
             this.Property(t => t.Dev).HasColumnName("Dev");
             this.Property(t => t.Support).HasColumnName("Support");
+            this.Property(t => t.Sales).HasColumnName("Sales");
             this.Property(t => t.Research).HasColumnName("Research");
 
             // Relationships

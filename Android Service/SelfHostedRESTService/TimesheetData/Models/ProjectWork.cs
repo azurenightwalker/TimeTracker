@@ -10,6 +10,7 @@ namespace TimesheetData.Models
         public string Project { get; set; }
         public decimal Dev { get; set; }
         public decimal Support { get; set; }
+        public decimal Sales { get; set; }
         public decimal Research { get; set; }
         public virtual Day Day { get; set; }
         public virtual Employee Employee { get; set; }

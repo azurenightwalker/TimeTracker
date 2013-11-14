@@ -69,11 +69,12 @@
     </LinearLayout>
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dip"
         android:layout_below="@id/clockOutRow"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
         android:id="@+id/projectHolder"
-        android:orientation="vertical"/>
+        android:orientation="vertical" />
 
 
 </RelativeLayout>

@@ -10,6 +10,7 @@ public class Project {
     private final Boolean HasDev;
     private final Boolean HasSupport;
     private final Boolean HasResearch;
+    private final Boolean HasSales;
 
     public Project(String name)
     {
@@ -17,14 +18,16 @@ public class Project {
         HasDev = true;
         HasSupport = true;
         HasResearch = true;
+        HasSales = true;
     }
 
-    public Project(String name, Boolean hasDev, Boolean hasSupport, Boolean hasResearch)
+    public Project(String name, Boolean hasDev, Boolean hasSupport, Boolean hasResearch, Boolean hasSales)
     {
         Name = name;
         HasDev = hasDev;
         HasSupport = hasSupport;
         HasResearch = hasResearch;
+        HasSales = hasSales;
     }
 
     @Override
@@ -47,6 +50,11 @@ public class Project {
         return HasResearch;
     }
 
+    public Boolean hasSales()
+    {
+        return HasSales;
+    }
+
     public List<WorkType> getWorkTypes()
     {
         List<WorkType> res = new ArrayList<WorkType>();
@@ -56,6 +64,8 @@ public class Project {
             res.add(WorkType.Research);
         if (hasSupport())
             res.add(WorkType.Support);
+        if (hasSales())
+            res.add(WorkType.Sales);
         return res;
     }
 

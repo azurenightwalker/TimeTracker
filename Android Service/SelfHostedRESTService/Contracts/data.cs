@@ -22,6 +22,7 @@ namespace Contracts
         public bool HasDev { get; set; }
         public bool HasSupport { get; set; }
         public bool HasResearch { get; set; }
+        public bool HasSales { get; set; }
 
     }
 }

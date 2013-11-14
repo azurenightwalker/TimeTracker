@@ -41,7 +41,7 @@ import java.util.Map;
 import uk.co.xlabsystems.timetracker.ProjectCache;
 
 public final class NetworkHelper {
-    public static final String BASE_REST_URL = "http://192.168.0.104:8000/";
+    public static final String BASE_REST_URL = "http://timesheet.service.x-labsystems.co.uk/api/";
 
     private static NetworkHelper _networkHelper;
     private final Context mContext;
@@ -109,12 +109,13 @@ public final class NetworkHelper {
                 else{
                     return new JSONArray(ProjectCache.getInstance().get());
                 }
-            } catch(JSONException e){
+            } catch(Exception e){
                 e.printStackTrace();
-                return null;
-            } catch (IOException e){
-                e.printStackTrace();
-                return null;
+                try {
+                    return new JSONArray(ProjectCache.getInstance().get());
+                }catch (JSONException e2){
+                    return null;
+                }
             }
         }
         else{

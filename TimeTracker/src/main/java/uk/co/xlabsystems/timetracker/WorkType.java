@@ -3,8 +3,9 @@ package uk.co.xlabsystems.timetracker;
 public enum WorkType {
     Dev(0),
     Support(1<<1),
-    Research(2<<1);//,
-    //Training(3<<1);
+    Sales(2<<1),
+    Research(3<<1);//,
+    //Training(4<<1);
 
     public final int Value;
 
@@ -21,8 +22,10 @@ public enum WorkType {
             case 1<<1:
                 return  WorkType.Support;
             case 2<<1:
+                return  WorkType.Sales;
+            case 3<<1:
                 return  WorkType.Research;
-            /*case 3<<1:
+            /*case 4<<1:
                 return  WorkType.Training;*/
             default:
                 return null;

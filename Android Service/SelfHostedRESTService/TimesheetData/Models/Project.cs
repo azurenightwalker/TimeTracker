@@ -14,6 +14,7 @@ namespace TimesheetData.Models
         public bool HasDev { get; set; }
         public bool HasSupport { get; set; }
         public bool HasResearch { get; set; }
+        public bool HasSales { get; set; }
         public bool Active { get; set; }
         public virtual ICollection<ProjectWork> ProjectWorks { get; set; }
     }

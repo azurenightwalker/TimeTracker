@@ -31,7 +31,7 @@ public final class ProjectHelper {
     public static List<Project> getProjectList() {
         // TODO: Fetch these using NetworkHelper
         //
-        JSONArray project = NetworkHelper.getInstance().GetArray("GetProjects");
+        JSONArray project = NetworkHelper.getInstance().GetArray("Projects");
         if (project != null)
         {
             try {
@@ -45,7 +45,8 @@ public final class ProjectHelper {
                             temp.getString("Name"),
                             temp.getBoolean("HasDev"),
                             temp.getBoolean("HasSupport"),
-                            temp.getBoolean("HasResearch")
+                            temp.getBoolean("HasResearch"),
+                            temp.getBoolean("HasSales")
                     ));
                 }
             }
@@ -55,7 +56,7 @@ public final class ProjectHelper {
         }
         else if (ProjectList.size() == 0)
         {
-            ProjectList.add(new Project("No Projects", false, false, false));
+            ProjectList.add(new Project("No Projects", false, false, false,false));
         }
 
         return ProjectList;
