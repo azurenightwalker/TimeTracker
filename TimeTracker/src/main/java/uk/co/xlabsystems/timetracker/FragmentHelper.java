@@ -24,4 +24,9 @@ public final class FragmentHelper {
                 return fragment;
         }
     }
+
+    public static Fragment getBestFragment()
+    {
+        return getFragmentByAction(ActionMethod.ViewDay);
+    }
 }

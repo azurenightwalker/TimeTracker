@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Time Tracker</string>
+    <string name="app_name">X-Lab Time Tracker</string>
     <string name="title_project_detail">Project Detail</string>
     <string name="title_clockin_preference">Auto Clock In</string>
     <string name="title_clockout_preference">Auto Clock Out</string>
@@ -17,5 +17,8 @@
     <string name="updateButton">Update</string>
     <string name="noClockIn">Can\'t clock in in the future!</string>
     <string name="noClockOut">Can\'t clock out in the future!</string>
+    <string name="title_activity_main">X-Lab Time Tracking</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 
 </resources>

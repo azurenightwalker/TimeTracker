@@ -34,7 +34,6 @@ public class ClockFragment extends TimeTrackerFragment  implements AdapterView.O
     public ClockFragment(Boolean isIn) {
         super();
         mIsIn = isIn;
-        //projectList = ProjectHelper.getProjectList();
         if (mIsIn)
             new ProjectDataTask().execute(this);
     }
