@@ -1,6 +1,6 @@
 package uk.co.xlabsystems.timetracker;
 
-import android.support.v7.app.ActionBarActivity;;
+import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -20,7 +20,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
+
+import java.util.Calendar;
+import java.util.Locale;
+
+import uk.co.xlabsystems.timetracker.data.Day;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
@@ -74,8 +78,20 @@ public class NavigationDrawerFragment extends Fragment {
             mCurrentSelectedPosition = savedInstanceState.getInt(STATE_SELECTED_POSITION);
             mFromSavedInstanceState = true;
         }
+        else {
+            Day today = DayHelper.findToday(getActivity());
+            final Calendar cal = Calendar.getInstance(Locale.getDefault());
+            if (today == null)
+                mCurrentSelectedPosition = 0;
+            else if (today.getTimeOut().getTime() == 0 && cal.get(Calendar.HOUR_OF_DAY) < 17)
+                mCurrentSelectedPosition = 2;
+            else if (today.getTimeOut().getTime() == 0)
+                mCurrentSelectedPosition = 1;
+            else
+                mCurrentSelectedPosition = 3;
+        }
 
-        // Select either the default item (0) or the last selected item.
+        // Select either the "best" or the last selected item.
         selectItem(mCurrentSelectedPosition);
     }
 
@@ -238,11 +254,7 @@ public class NavigationDrawerFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+        return mDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
 
     /**

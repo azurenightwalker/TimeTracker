@@ -9,8 +9,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
+
+import uk.co.xlabsystems.timetracker.network.NetworkHelper;
 
 public class Day {
     private final long Id;
@@ -18,6 +24,9 @@ public class Day {
     private final Date TimeIn;
     private Date TimeOut;
     private final JSONObject Projects;
+    private double holidayHours;
+    private double lunchHours;
+    private double trainingHours;
 
     public ContentValues asContentValues()
     {
@@ -92,8 +101,30 @@ public class Day {
         return TimeIn;
     }
 
-    public void pushData()
-    {
-        //TODO: Push to server
+    public void pushData() {
+        JSONObject data = new JSONObject();
+        try {
+            data.put("TimeIn", getTimeIn());
+            data.put("TimeOut", getTimeOut());
+            data.put("Holiday", getHolidayHours());
+            data.put("Lunch", getLunchHours());
+            data.put("Training", getTrainingHours());
+            data.put("Work", Projects);
+            NetworkHelper.getInstance().Post(data,"Work");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public double getHolidayHours() {
+        return holidayHours;
+    }
+
+    public double getLunchHours() {
+        return lunchHours;
+    }
+
+    public double getTrainingHours() {
+        return trainingHours;
     }
 }

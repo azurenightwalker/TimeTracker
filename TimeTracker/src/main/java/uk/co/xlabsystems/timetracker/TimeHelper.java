@@ -7,9 +7,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-/**
- * Created by scott.jones on 27/09/13.
- */
 public final class TimeHelper {
     public static final SimpleDateFormat DateFormat = new SimpleDateFormat("dd-MMM-yyyy",Locale.getDefault());
     public static final SimpleDateFormat DateTimeFormat = new SimpleDateFormat("dd-MMM-yyyy HH:mm",Locale.getDefault());
@@ -18,9 +15,14 @@ public final class TimeHelper {
 
     public static Date getDate(final TimePicker timePicker)
     {
+        return getCalendar(timePicker).getTime();
+    }
+
+    public static Calendar getCalendar(final TimePicker timePicker)
+    {
         final Calendar cal = Calendar.getInstance(Locale.getDefault());
         cal.set(Calendar.HOUR_OF_DAY, timePicker.getCurrentHour());
         cal.set(Calendar.MINUTE, timePicker.getCurrentMinute());
-        return cal.getTime();
+        return cal;
     }
 }

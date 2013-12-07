@@ -1,6 +1,5 @@
 package uk.co.xlabsystems.timetracker;
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
 public final class FragmentHelper {
@@ -17,16 +16,7 @@ public final class FragmentHelper {
             case ViewDay:
                 return new DayFragment();
             default:
-                Bundle arguments = new Bundle();
-                arguments.putString(ProjectDetailFragment.ARG_ITEM_ID, actionMethod.toString());
-                Fragment fragment = new ProjectDetailFragment();
-                fragment.setArguments(arguments);
-                return fragment;
+                return null;
         }
-    }
-
-    public static Fragment getBestFragment()
-    {
-        return getFragmentByAction(ActionMethod.ViewDay);
     }
 }

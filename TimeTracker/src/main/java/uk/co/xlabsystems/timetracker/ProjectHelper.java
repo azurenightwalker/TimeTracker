@@ -12,10 +12,6 @@ import uk.co.xlabsystems.timetracker.data.Project;
 import uk.co.xlabsystems.timetracker.data.ProjectWork;
 import uk.co.xlabsystems.timetracker.network.NetworkHelper;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -70,35 +66,36 @@ public final class ProjectHelper {
         );
     }
 
-    public static void setCurrentProject(Context context, ProjectWork projectWork) {
+    public static void setCurrentProject(Context context, ProjectWork projectWork,Calendar time) {
         ProjectWork old = getCurrentProject(context);
         SharedPreferences mPrefs = context.getSharedPreferences("TimeTrackerPreferences", Context.MODE_PRIVATE);
         Day today = DayHelper.findToday(context);
-        today.addProjectHours(old, workOutHours(context));
+        today.addProjectHours(old, workOutHours(context,time));
         SharedPreferences.Editor edi = mPrefs.edit();
         edi.putString("Project",projectWork.getProjectName());
         edi.putInt("WorkType", projectWork.getWorkType().Value);
-        edi.putLong("SwitchTime", Calendar.getInstance(Locale.getDefault()).getTime().getTime());
+        edi.putLong("SwitchTime", time.getTime().getTime());
         edi.commit();
         context.getContentResolver().update(today.getUri(),today.asContentValues(),null,null);
     }
 
-    public static void stopProject(Context context) {
+    public static void stopProject(Context context, Calendar time) {
         ProjectWork old = getCurrentProject(context);
         SharedPreferences mPrefs = context.getSharedPreferences("TimeTrackerPreferences", Context.MODE_PRIVATE);
         Day today = DayHelper.findToday(context);
-        today.addProjectHours(old, workOutHours(context));
+        today.addProjectHours(old, workOutHours(context,time));
         SharedPreferences.Editor edi = mPrefs.edit();
-        edi.putLong("SwitchTime", Calendar.getInstance(Locale.getDefault()).getTime().getTime());
+        edi.putLong("SwitchTime", time.getTime().getTime());
         edi.commit();
         context.getContentResolver().update(today.getUri(),today.asContentValues(),null,null);
     }
 
-    private static double workOutHours(Context context)
+    private static double workOutHours(Context context,Calendar time)
     {
         SharedPreferences mPrefs = context.getSharedPreferences("TimeTrackerPreferences", Context.MODE_PRIVATE);
-        Calendar cal = Calendar.getInstance(Locale.getDefault());
-        Long millis = cal.getTime().getTime() - mPrefs.getLong("SwitchTime",0);
+        if (time == null)
+            time = Calendar.getInstance(Locale.getDefault());
+        Long millis = time.getTime().getTime() - mPrefs.getLong("SwitchTime",0);
         BigDecimal bd = new BigDecimal(Double.toString(millis / Hour));
         bd = bd.setScale(1, BigDecimal.ROUND_HALF_UP);
         return bd.doubleValue();

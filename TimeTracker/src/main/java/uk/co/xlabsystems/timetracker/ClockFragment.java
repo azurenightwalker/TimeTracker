@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -22,7 +23,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class ClockFragment extends TimeTrackerFragment  implements AdapterView.OnItemSelectedListener {
+public class ClockFragment extends TimeTrackerFragment  implements AdapterView.OnItemSelectedListener, View.OnClickListener {
     private final Boolean mIsIn;
 
     private TimePicker timePicker;
@@ -30,6 +31,7 @@ public class ClockFragment extends TimeTrackerFragment  implements AdapterView.O
     private Spinner workTypeSpinner;
     private ProjectWork CurrentProject;
     private List<WorkType> workTypes;
+    private Button clockButton;
 
     public ClockFragment(Boolean isIn) {
         super();
@@ -46,42 +48,49 @@ public class ClockFragment extends TimeTrackerFragment  implements AdapterView.O
         Boolean canSave = mIsIn && today == null || !mIsIn && today != null && today.getTimeOut().getTime() == 0;
         v.findViewById(R.id.save).setEnabled(canSave);
         timePicker = (TimePicker) v.findViewById(R.id.time);
+        clockButton = (Button) v.findViewById(R.id.save);
+        clockButton.setOnClickListener(this);
         if (mIsIn)
             InitView(v);
         return v;
     }
 
-    public void clock(final View v)
+    public void onClick(final View v)
     {
-
-        final Date date = TimeHelper.getDate(timePicker);
-        if (date.after(new Date()))
-            Toast.makeText(getActivity(),
-                    mIsIn ? R.string.noClockIn : R.string.noClockOut,
-                    Toast.LENGTH_SHORT).show();
-        else
+        if (v == clockButton)
         {
-            if (mIsIn)
-            {
-                Day day = new Day(date);
-                getActivity().getContentResolver().insert(TimesheetContract.CONTENT_URI,day.asContentValues());
-                SharedPreferences mPrefs =  getActivity().getSharedPreferences("TimeTrackerPreferences", Context.MODE_PRIVATE);
-                SharedPreferences.Editor edi = mPrefs.edit();
-                edi.putLong("SwitchTime", Calendar.getInstance(Locale.getDefault()).getTime().getTime());
-                edi.commit();
-                Project project = (Project)projectSpinner.getSelectedItem();
-                WorkType workType = (WorkType)workTypeSpinner.getSelectedItem();
-                CurrentProject = new ProjectWork(project,workType);
-                ProjectHelper.setCurrentProject(getActivity(),CurrentProject);
-            }
+            final Calendar clockTime = TimeHelper.getCalendar(timePicker);
+            final Date clockDate = clockTime.getTime();
+            if (clockDate.after(new Date()))
+                Toast.makeText(getActivity(),
+                        mIsIn ? R.string.noClockIn : R.string.noClockOut,
+                        Toast.LENGTH_SHORT).show();
             else
             {
-                ProjectHelper.stopProject(getActivity());
-                findToday();
-                today.setTimeOut(Calendar.getInstance(Locale.getDefault()).getTime());
-                getActivity().getContentResolver().update(today.getUri(), today.asContentValues(), null, null);
+
+
+                if (mIsIn)
+                {
+                    Day day = new Day(clockDate);
+                    getActivity().getContentResolver().insert(TimesheetContract.CONTENT_URI,day.asContentValues());
+                    SharedPreferences mPrefs =  getActivity().getSharedPreferences("TimeTrackerPreferences", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor edi = mPrefs.edit();
+                    edi.putLong("SwitchTime", clockDate.getTime());
+                    edi.commit();
+                    Project project = (Project)projectSpinner.getSelectedItem();
+                    WorkType workType = (WorkType)workTypeSpinner.getSelectedItem();
+                    CurrentProject = new ProjectWork(project,workType);
+                    ProjectHelper.setCurrentProject(getActivity(),CurrentProject,clockTime);
+                }
+                else
+                {
+                    ProjectHelper.stopProject(getActivity(),clockTime);
+                    findToday();
+                    today.setTimeOut(Calendar.getInstance(Locale.getDefault()).getTime());
+                    getActivity().getContentResolver().update(today.getUri(), today.asContentValues(), null, null);
+                }
+                v.setEnabled(false);
             }
-            v.setEnabled(false);
         }
     }
 
@@ -93,19 +102,26 @@ public class ClockFragment extends TimeTrackerFragment  implements AdapterView.O
 
     private void UpdateView()
     {
-        projectSpinner.setAdapter(new ArrayAdapter<Project>(
-                getActivity(),
-                android.R.layout.simple_list_item_activated_1,
-                ProjectList
-        ));
-        projectSpinner.setOnItemSelectedListener(this);
+        try
+        {
+            projectSpinner.setAdapter(new ArrayAdapter<Project>(
+                    getActivity(),
+                    android.R.layout.simple_list_item_activated_1,
+                    ProjectList
+            ));
+            projectSpinner.setOnItemSelectedListener(this);
 
-        CurrentProject = ProjectHelper.getCurrentProject(getActivity());
-        projectSpinner.setSelection(Math.max(ProjectList.indexOf(CurrentProject.getProject()),0));
-        workTypeSpinner.setOnItemSelectedListener(this);
+            CurrentProject = ProjectHelper.getCurrentProject(getActivity());
+            projectSpinner.setSelection(Math.max(ProjectList.indexOf(CurrentProject.getProject()),0));
+            workTypeSpinner.setOnItemSelectedListener(this);
 
-        UpdateWorkTypes();
-        workTypeSpinner.setSelection(Math.max(workTypes.indexOf(CurrentProject.getWorkType()),0));
+            UpdateWorkTypes();
+            workTypeSpinner.setSelection(Math.max(workTypes.indexOf(CurrentProject.getWorkType()),0));
+        }
+        catch (NullPointerException ex)
+        {
+            // This is fine - view has been removed
+        }
     }
 
     private void UpdateWorkTypes()

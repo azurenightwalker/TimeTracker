@@ -5,7 +5,6 @@ import android.content.Context;
 
 import org.json.JSONArray;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;

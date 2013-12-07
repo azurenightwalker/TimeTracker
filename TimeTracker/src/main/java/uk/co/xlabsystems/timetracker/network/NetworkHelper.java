@@ -39,9 +39,10 @@ import java.util.Locale;
 import java.util.Map;
 
 import uk.co.xlabsystems.timetracker.ProjectCache;
+import uk.co.xlabsystems.timetracker.security.CredentialStore;
 
 public final class NetworkHelper {
-    public static final String BASE_REST_URL = "http://timesheet.service.x-labsystems.co.uk/api/";
+    public static final String BASE_REST_URL = "https://timesheet.service.x-labsystems.co.uk/api/";
 
     private static NetworkHelper _networkHelper;
     private final Context mContext;
@@ -120,23 +121,17 @@ public final class NetworkHelper {
         }
         else{
             try {
-                JSONArray a = new JSONArray(ProjectCache.getInstance().get());
-                return a;
+                return new JSONArray(ProjectCache.getInstance().get());
             }catch (JSONException e){
                 return null;
             }
         }
     }
 
-    public JSONObject Post(Map<String, Object> data, String url)
+    public JSONObject Post(JSONObject data, String url)
     {
         try{
-            List<NameValuePair> dataToPost = new ArrayList<NameValuePair>();
-
-            for (Map.Entry<String, Object> entry : data.entrySet()){
-                dataToPost.add(new BasicNameValuePair(entry.getKey(), entry.getValue().toString()));
-            }
-            postData(BASE_REST_URL + url, dataToPost);
+            postData(BASE_REST_URL + url, data);
 
         } catch (NullPointerException e){
             return null;
@@ -146,11 +141,13 @@ public final class NetworkHelper {
         return null;
     }
 
-    private void postData(String url, List<NameValuePair> data) throws IOException {
+    private void postData(String url, JSONObject data) throws IOException {
         // Create a new HttpClient and Post Header
         HttpClient httpclient = getHttpClient();
         HttpPost httppost = new HttpPost(url);
-        httppost.setEntity(new UrlEncodedFormEntity(data));
+        httppost.setEntity(new StringEntity(data.toString()));
+        httppost.setHeader("Accept", "application/json");
+        httppost.setHeader("Content-type", "application/json");
         // Execute HTTP Post Request
         HttpResponse response = httpclient.execute(httppost);
 
@@ -175,11 +172,8 @@ public final class NetworkHelper {
 
     private HttpClient getHttpClient()
     {
-        CredentialsProvider credProvider = new BasicCredentialsProvider();
-        credProvider.setCredentials(new AuthScope(AuthScope.ANY_HOST, AuthScope.ANY_PORT),
-                new UsernamePasswordCredentials("YOUR USER NAME HERE", "YOUR PASSWORD HERE"));
         DefaultHttpClient http = new DefaultHttpClient();
-        //http.setCredentialsProvider(credProvider);
+        http.setCredentialsProvider(CredentialStore.getInstance().getCredentials());
         return  http;
     }
 

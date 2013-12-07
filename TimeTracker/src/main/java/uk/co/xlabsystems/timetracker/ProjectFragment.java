@@ -7,13 +7,14 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TimePicker;
 
 import uk.co.xlabsystems.timetracker.data.Project;
 import uk.co.xlabsystems.timetracker.data.ProjectWork;
 
 import java.util.List;
 
-public class ProjectFragment extends TimeTrackerFragment implements AdapterView.OnItemSelectedListener{
+public class ProjectFragment extends TimeTrackerFragment implements AdapterView.OnItemSelectedListener, View.OnClickListener{
 
     private Spinner projectSpinner;
     private Spinner workTypeSpinner;
@@ -21,6 +22,7 @@ public class ProjectFragment extends TimeTrackerFragment implements AdapterView.
     private List<Project> projectList;
     private List<WorkType> workTypes;
     private ProjectWork CurrentProject;
+    private TimePicker timePicker;
 
     public ProjectFragment() {
         super();
@@ -53,18 +55,24 @@ public class ProjectFragment extends TimeTrackerFragment implements AdapterView.
         CurrentProject = ProjectHelper.getCurrentProject(getActivity());
         projectSpinner.setSelection(Math.max(projectList.indexOf(CurrentProject.getProject()),0));
         UpdateWorkTypes();
-        workTypeSpinner.setSelection(Math.max(workTypes.indexOf(CurrentProject.getWorkType()),0));
+        workTypeSpinner.setSelection(Math.max(workTypes.indexOf(CurrentProject.getWorkType()), 0));
+        timePicker = (TimePicker)v.findViewById(R.id.time);
         save = v.findViewById(R.id.save);
+        save.setOnClickListener(this);
     }
 
     private void UpdateWorkTypes()
     {
-        workTypes = ((Project) projectSpinner.getSelectedItem()).getWorkTypes();
-        workTypeSpinner.setAdapter(new ArrayAdapter<WorkType>(
-                getActivity(),
-                android.R.layout.simple_list_item_activated_1,
-                workTypes
-        ));
+        Project project = ((Project) projectSpinner.getSelectedItem());
+        if (project != null)
+        {
+            workTypes = project.getWorkTypes();
+            workTypeSpinner.setAdapter(new ArrayAdapter<WorkType>(
+                    getActivity(),
+                    android.R.layout.simple_list_item_activated_1,
+                    workTypes
+            ));
+        }
     }
 
     public void updateView()
@@ -74,13 +82,17 @@ public class ProjectFragment extends TimeTrackerFragment implements AdapterView.
         save.setEnabled(!CurrentProject.isFor(selected,workType));
     }
 
-    public void switchProject(View view)
+    public void onClick(View view)
     {
-        Project project = (Project)projectSpinner.getSelectedItem();
-        WorkType workType = (WorkType)workTypeSpinner.getSelectedItem();
-        CurrentProject = new ProjectWork(project,workType);
-        ProjectHelper.setCurrentProject(getActivity(),CurrentProject);
-        updateView();
+        if (view == save)
+        {
+            Project project = (Project)projectSpinner.getSelectedItem();
+            WorkType workType = (WorkType)workTypeSpinner.getSelectedItem();
+            CurrentProject = new ProjectWork(project,workType);
+            ProjectHelper.setCurrentProject(getActivity(),CurrentProject,
+                    TimeHelper.getCalendar(timePicker));
+            updateView();
+        }
     }
 
     @Override

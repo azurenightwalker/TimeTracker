@@ -18,16 +18,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/updateButton"
-        android:id="@+id/save"
+        android:id="@+id/updateDay"
         android:layout_below="@+id/datePicker"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:onClick="updateDay"/>
+        android:layout_marginTop="10dp"/>
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/save"
+        android:layout_below="@id/updateDay"
         android:layout_alignParentLeft="true"
         android:id="@+id/clockInRow"
         android:weightSum="4">
@@ -75,6 +74,13 @@
         android:layout_alignParentBottom="true"
         android:id="@+id/projectHolder"
         android:orientation="vertical" />
-
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/pushDay"
+        android:id="@+id/pushDay"
+        android:layout_below="@+id/projectHolder"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"/>
 
 </RelativeLayout>
